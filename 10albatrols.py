@@ -1,6 +1,6 @@
 def bird(x0: int, y0: int):
-    background()
-    nose(0 + x0, -425 + y0)
+    #background()
+    #nose(0 + x0, -425 + y0)
     tail(0 + x0 + x0, -420 + y0)
     wing(60 + x0, -450 + y0)
     wing(0 + x0, -430 + y0)
@@ -9,15 +9,13 @@ def bird(x0: int, y0: int):
     leg(0 + x0, -450 + y0)
 
 
-def nose(xnose: int, ynose: int):
-    penColor('black')
-    brushColor(255, 230, 128)
-    polygon(([(570 + xnose, 792 + ynose), (571 + xnose, 786 + ynose), (608 + xnose, 780 + ynose),
-              (628 + xnose, 779 + ynose), (643 + xnose, 796 + ynose), (637 + xnose, 793 + ynose)]))
-    polygon(([(569 + xnose, 786 + ynose), (580 + xnose, 790 + ynose), (603 + xnose, 793 + ynose),
-              (633 + xnose, 793 + ynose), (643 + xnose, 790 + ynose), (629 + xnose, 807 + ynose),
-              (565 + xnose, 799 + ynose)]))
-
+#def nose(xnose: int, ynose: int):
+#   brushColor(255, 230, 128)
+#    polygon(([(570 + xnose, 792 + ynose), (571 + xnose, 786 + ynose), (608 + xnose, 780 + ynose),
+#             (628 + xnose, 779 + ynose), (643 + xnose, 796 + ynose), (637 + xnose, 793 + ynose)]))
+#    polygon(([(569 + xnose, 786 + ynose), (580 + xnose, 790 + ynose), (603 + xnose, 793 + ynose),
+#              (633 + xnose, 793 + ynose), (643 + xnose, 790 + ynose), (629 + xnose, 807 + ynose),
+#             (565 + xnose, 799 + ynose)]))
 
 def tail(xtail: int, ytail: int):
     penColor('black')
@@ -26,6 +24,7 @@ def tail(xtail: int, ytail: int):
 
 
 def leg(xleg: int, yleg: int):
+    leg_obj = list( )
     feet(xleg, yleg)
     penSize(40)
     penColor('white')
@@ -109,29 +108,35 @@ def albatrols(xalbat: int, yalbat: int):
     c.create_oval(250 + xalbat, 460 + yalbat, 450 + xalbat, 560 + yalbat, fill='white', outline='white')
     c.create_oval(420 + xalbat, 490 + yalbat, 520 + xalbat, 530 + yalbat, fill='white', outline='white')
     c.create_oval(500 + xalbat, 460 + yalbat, 570 + xalbat, 510 + yalbat, fill='white', outline='white')
-    c.create_oval(540 + xalbat, 480 + yalbat, 555 + xalbat, 490 + yalbat, fill='black', outline='white')
+    #c.create_oval(540 + xalbat, 480 + yalbat, 555 + xalbat, 490 + yalbat, fill='black', outline='white')
 
 
-def main():
-    global flag
-    global mov
-    bird(mov, mov)
-    if flag == True:
-        mov += 5
+def movement():
+    global nose2
+    global nose1
+    global counter
+    if counter == 0:
+        moveObjectBy(nose1, 0, -5)
+        moveObjectBy(nose2, 0, 5)
+        moveObjectBy(eye, -3, -3)
+        counter = 1
     else:
-        mov -= 5
-    if mov > 40:
-        flag = False
-    elif mov < 0:
-        flag = True
-
+        moveObjectBy(nose1, 0, 5)
+        moveObjectBy(nose2, 0, -5)
+        moveObjectBy(eye, 3, 3)
+        counter = 0
 
 from graph import *
-flag = False
-root = tkinter.Tk()
 c = canvas()
 windowSize(790, 1100)
 canvasSize(790, 1100)
-mov = 0
-onTimer(main, 100)
+background()
+brushColor(255, 230, 128)
+penColor('black')
+nose1 = polygon(([(570, 367), (571, 361), (608, 355), (628, 354), (643, 371), (637, 368)]))
+nose2 = polygon(([(569-5, 361), (580-5, 365), (603-5, 368), (633-5, 368), (643-5, 365), (629-5, 382), (565-5, 374)]))
+counter = 0
+bird(0, 0)
+eye = c.create_oval(540, 480-125, 555, 490-125, fill='black', outline='white')
+onTimer(movement, 700)
 run()
