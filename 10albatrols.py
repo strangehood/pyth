@@ -112,30 +112,26 @@ def albatrols(xalbat: int, yalbat: int):
     c.create_oval(540 + xalbat, 480 + yalbat, 555 + xalbat, 490 + yalbat, fill='black', outline='white')
 
 
-def main(movement: int):
-    flag = False
-    bird(movement, movement)
+def main():
+    global flag
+    global mov
+    bird(mov, mov)
     if flag == True:
-        movement += 5
+        mov += 5
     else:
-        movement -= 5
-    if movement > 40:
+        mov -= 5
+    if mov > 40:
         flag = False
-    elif movement < 0:
+    elif mov < 0:
         flag = True
-    return movement
-
-def nothing():
-    pass
 
 
 from graph import *
-
+flag = False
+root = tkinter.Tk()
 c = canvas()
 windowSize(790, 1100)
 canvasSize(790, 1100)
-mov=0
-onTimer(nothing, 10)
-main(mov)
-mov = main(mov)
+mov = 0
+onTimer(main, 100)
 run()
