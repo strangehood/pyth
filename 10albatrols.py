@@ -126,6 +126,25 @@ def movement():
         moveObjectBy(eye, 3, 3)
         counter = 0
 
+def keyPressed(event):
+  global dx, dy
+  if event.keycode == VK_LEFT:
+    dx = -1; dy = 0
+  elif event.keycode == VK_RIGHT:
+    dx = 1; dy = 0
+  elif event.keycode == VK_UP:
+    dx = 0; dy = -1
+  elif event.keycode == VK_DOWN:
+    dx = 0; dy = 1
+  elif event.keycode == VK_SPACE:
+    dx = dy = 0
+  elif event.keycode == VK_ESCAPE:
+    close()
+
+def doMove():
+    global dx, dy, hohh
+    moveObjectBy(hoho, 1, 1)
+
 from graph import *
 c = canvas()
 windowSize(790, 1100)
@@ -136,7 +155,14 @@ penColor('black')
 nose1 = polygon(([(570, 367), (571, 361), (608, 355), (628, 354), (643, 371), (637, 368)]))
 nose2 = polygon(([(569-5, 361), (580-5, 365), (603-5, 368), (633-5, 368), (643-5, 365), (629-5, 382), (565-5, 374)]))
 counter = 0
-bird(0, 0)
+x = 0
+y = 0
+hoho = bird(x, y)
 eye = c.create_oval(540, 480-125, 555, 490-125, fill='black', outline='white')
+dx = 0
+dy = 0
+label('коля лучший', 45, 5, fg = "red")
+
+
 onTimer(movement, 700)
 run()
